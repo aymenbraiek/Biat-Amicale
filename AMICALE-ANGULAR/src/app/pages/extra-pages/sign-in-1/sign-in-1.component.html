@@ -1,0 +1,22 @@
+<ni-card [title]="'Authentification'" [align]="'center'">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()"  >
+
+    <mat-form-field>
+      <input matInput required placeholder="Matricule" name="mat" formControlName="mat"[(ngModel)]="matricule" />
+    </mat-form-field>
+    <div *ngIf="submitted && f.mat.errors" class="invalid-feedback">
+      <div *ngIf="f.mat.errors.required">Matricule obligatoire</div>
+    </div>
+        <mat-form-field>
+      <input matInput required name="password" type="password" placeholder="Mot de passe"  [(ngModel)]="mot_de_passe" formControlName="password"/>
+    </mat-form-field>
+    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+      <div *ngIf="f.password.errors.required">Mot de passe obligatoire</div>
+    </div>
+    <button ni-button>Connecter</button>
+    <div *ngIf="  erreur === true " style="color: red"> Matricule et/ou mot de passe erroné !</div>
+    <div class="additional-info">
+      <a> DSI | DIGITAL FACTORY ET DONNEES, BIAT © {{ annee }}</a>
+    </div>
+  </form>
+</ni-card>

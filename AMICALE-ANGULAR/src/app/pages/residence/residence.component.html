@@ -1,0 +1,134 @@
+<ni-breadcrumb [menu]="breadcrumb" [style]="'custom1'" class="mb-4"></ni-breadcrumb>
+
+<ni-card title="Informations générales">
+
+  <div class="row">
+    <div class="col-md-4">
+      <mat-form-field class="md-icon-left">
+        <input matInput placeholder="Matricule" [(ngModel)]="currentUser.matricule"
+          [ngModelOptions]="{standalone: true}" [disabled]=true>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field class="md-icon-left">
+        <input matInput placeholder="Nom et prénom" [(ngModel)]="currentUser.nom" [ngModelOptions]="{standalone: true}"
+          [disabled]=true>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field class="md-icon-left">
+        <input matInput placeholder="Affectation" [(ngModel)]="currentUser.affectation"
+          [ngModelOptions]="{standalone: true}" [disabled]=true>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field class="md-icon-left">
+        <input matInput placeholder="N° téléphone fixe" [(ngModel)]="currentUser.tel"
+          [ngModelOptions]="{standalone: true}" [disabled]=true>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field class="md-icon-left">
+        <input id="name" name="name" class="form-control" matInput type="number" placeholder="N° téléphone portable"
+          required maxlength="8" [formControl]="form.controls['fname']" [(ngModel)]='reservation.num_TEL_PORT'>
+
+        <mat-error *ngIf="form.controls['fname'].hasError('required') && form.controls['fname'].touched">
+          Numéro téléphone obligatoire.
+        </mat-error>
+
+      </mat-form-field>
+    </div>
+  </div>
+</ni-card>
+
+<ni-card title="Choix Résidence">
+
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field class="mb-0">
+        <input matInput [matAutocomplete]="auto" placeholder="Nom de la résidence"
+          [formControl]="form.controls['fresidence']" required>
+        <mat-error *ngIf="form.controls['fresidence'].hasError('required') && form.controls['fresidence'].touched">
+          Choix de résidence obligatoire.
+        </mat-error>
+      </mat-form-field>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let h of listResidence" [value]="h" (click)="recupName(h)" (click)="periode(h)"
+          (click)="NombreLit(h)">{{h}}</mat-option>
+      </mat-autocomplete>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field>
+        <input matInput [(ngModel)]="reservation.ville" placeholder="Ville" [disabled]=true>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- <div class="row">
+    <div class="col-md-6">
+      <mat-form-field>
+        <input matInput [(ngModel)]="nombreLit" placeholder="Nombre de Lit">
+      </mat-form-field>
+    </div>
+  </div>-->
+
+
+  <div class="row" *ngIf="exist">
+    <div class="col-md-6">
+      <mat-form-field class="mb-0">
+        <input matInput [matAutocomplete]="auto3" placeholder="Periode" >
+
+
+      </mat-form-field>
+      <mat-autocomplete #auto3="matAutocomplete">
+        <mat-option *ngFor="let h of listDates" [value]="h" (click)=periodedate(h)>{{h}}</mat-option>
+      </mat-autocomplete>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!exist">
+    <div class="col-md-6">
+      <mat-form-field>
+        <input matInput [matDatepicker]="dateDebut" placeholder="Choisissez une date de début"
+          (dateChange)="onDate_select_debut($event.value)">
+
+
+        <mat-datepicker-toggle matSuffix [for]="dateDebut"></mat-datepicker-toggle>
+        <mat-datepicker #dateDebut ngDefaultControl></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!exist">
+    <div class="col-md-6">
+      <mat-form-field>
+        <input matInput [matDatepicker]="dateFin" placeholder="Choisissez une date de fin"
+          (dateChange)="onDate_select_Fin($event.value)">
+
+
+        <mat-datepicker-toggle matSuffix [for]="dateFin"></mat-datepicker-toggle>
+        <mat-datepicker #dateFin ngDefaultControl></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field>
+        <textarea matInput placeholder="Commentaires" [(ngModel)]='commentaires'></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+</ni-card>
+<ni-card title="">
+  <button mat-raised-button color="accent" (click)="saveResidence(reservation)"
+    [disabled]="!form.valid">Envoyer</button>
+
+  <div *ngIf="!form.valid" style="color: red"> *Veuillez remplir le formulaire. </div>
+</ni-card>

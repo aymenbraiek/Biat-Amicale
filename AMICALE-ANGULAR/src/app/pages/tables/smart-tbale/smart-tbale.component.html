@@ -1,0 +1,65 @@
+<ni-breadcrumb [menu]="breadcrumb" [style]="'custom1'" class="mb-4"></ni-breadcrumb>
+<ni-card title="Informations générales">
+
+    <p-table [value]="cars2" dataKey="vin">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Vin</th>
+                <th>Year</th>
+                <th>Brand</th>
+                <th>Color</th>
+                <th style="width:8em"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="rowData">
+                <td>
+                    {{rowData.vin}}
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="rowData.year" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{rowData.year}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-dropdown [options]="brands" [(ngModel)]="rowData.brand" [style]="{'width':'100%'}"></p-dropdown>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{rowData.brand}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="rowData.color">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{rowData.color}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+
+
+
+                <td style="text-align:center">
+                    <button *ngIf="!editing"  type="button" pInitEditableRow
+                    (click)="onRowEditInit(rowData)"><i class="fa fa-check" aria-hidden="true"></i></button>
+                    <button *ngIf="editing" pButton type="button" pSaveEditableRow
+                      style="margin-right: .5em" (click)="onRowEditSave(rowData)"><i class="fa fa-check" aria-hidden="true"></i></button>
+                    <button *ngIf="editing" pButton type="button" pCancelEditableRow
+                      (click)="onRowEditCancel(rowData, ri)"><i class="fa fa-times" aria-hidden="true"></i></button>
+                  </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+</ni-card>
+

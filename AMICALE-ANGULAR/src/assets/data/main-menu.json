@@ -1,0 +1,61 @@
+  [
+    {
+      "title": "Conventions Amicale",
+      "groupTitle" : true
+    },
+	{
+    "title": "Réservation",
+    "groupTitle" : true
+  },
+  {
+    "title": "Hotel",
+    "icon": {
+      "class": "fa fa-hotel",
+      "bg": "#F0F4C3",
+      "color": "rgba(0,0,0,.87)"
+		},
+    "routing": "/default-layout/hotel"
+  },
+  {
+    "title": "Résidence",
+    "icon": {
+      "class": "fa fa-home",
+      "bg": "rgb(255, 171, 145)",
+      "color": "rgba(0,0,0,.87)"
+		},
+    "routing": "/default-layout/residence",
+    "disabled":true
+
+  },
+  {
+    "title": "Voyage",
+    "icon": {
+      "class": "fa fa-plane",
+      "bg": "rgba(176,190,197)",
+      "color": "rgba(0,0,0,.87)"
+		},
+    "routing": "/default-layout/typography",
+    "disabled":true
+    },
+  {
+    "title": "Excursion",
+    "icon": {
+      "class": "fa fa-tree",
+      "bg": "rgba(255,204,188)",
+      "color": "rgba(0,0,0,.87)"
+		},
+    "routing": "/default-layout/typography",
+    "disabled":true
+  },
+  {
+    "title": "Omra",
+    "icon": {
+      "class": "fas fa-kaaba",
+      "bg": "rgba(179,229,252)",
+      "color": "rgba(0,0,0,.87)"
+		},
+    "routing": "/default-layout/typography",
+    "disabled":true
+  }
+  ]
+

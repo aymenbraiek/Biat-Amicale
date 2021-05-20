@@ -1,0 +1,248 @@
+<ni-breadcrumb [menu]="breadcrumb" [style]="'custom1'" class="mb-4"></ni-breadcrumb>
+<!-- Informations-->
+<ni-card title="Informations générales">
+  <div class="row">
+    <div class="col-md-4">
+      <mat-form-field class="md-icon-left">
+        <input matInput placeholder="Matricule" [(ngModel)]="currentUser.matricule"
+          [ngModelOptions]="{standalone: true}">
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field class="md-icon-left">
+        <input matInput placeholder="Nom et prénom" [(ngModel)]="currentUser.nom" [ngModelOptions]="{standalone: true}"
+          [disabled]=true>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field class="md-icon-left">
+        <input matInput placeholder="Affectation" [(ngModel)]="currentUser.affectation"
+          [ngModelOptions]="{standalone: true}" [disabled]=true>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field class="md-icon-left">
+        <input matInput placeholder="N° téléphone fixe" [(ngModel)]="currentUser.tel"
+          [ngModelOptions]="{standalone: true}" [disabled]=true>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+      <mat-form-field class="md-icon-left">
+        <input matInput placeholder="N° téléphone portable" [(ngModel)]='tel_portable' required maxlength="8"
+          type="number" [formControl]="form.controls['fname']">
+        <mat-error *ngIf="form.controls['fname'].hasError('required') && form.controls['fname'].touched">
+          Numéro téléphone obligatoire.
+        </mat-error>
+      </mat-form-field>
+
+
+    </div>
+  </div>
+</ni-card>
+<ni-card title="Réservation">
+  <div class="row">
+    <div class="col-md-4">
+      <mat-form-field class="mb-0">
+        <input matInput placeholder="Hôtels‎" [matAutocomplete]="auto" [formControl]="form.controls['hotel']">
+      </mat-form-field>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let h of list_hotel_name" (click)="onHotelSelected(h)" [value]="h">{{h}}</mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="form.controls['hotel'].hasError('required') && form.controls['hotel'].touched">
+        obligatoire.
+      </mat-error>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field>
+        <input matInput placeholder="Ville" [(ngModel)]='ville' [disabled]=true>
+
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field>
+        <input matInput placeholder="Classement" [(ngModel)]='classement' #characterCountHintExample [disabled]=true>
+      </mat-form-field>
+    </div>
+  </div>
+  <!--<div class="row">
+    <div class="col-md-6">
+
+      <mat-form-field>
+        <input matInput [matDatepicker]="dateDebut" placeholder="Choisissez une date de début"
+          (dateChange)="onDate_select_debut($event.value)" [formControl]="form.controls['dateDebut']" [(ngModel)]="dateDebutt">
+        <mat-datepicker-toggle matSuffix [for]="dateDebut"></mat-datepicker-toggle>
+        <mat-datepicker #dateDebut ngDefaultControl></mat-datepicker>
+        <mat-error *ngIf="form.controls['dateDebut'].hasError('required') && form.controls['dateDebut'].touched">
+          obligatoire.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+      <mat-form-field>
+        <input matInput [matDatepicker]="dateFin" placeholder="Choisissez une date de fin" [min]="min" [max]="max"
+          (dateChange)="onDate_select_fin($event.value)" [formControl]="form.controls['dateFin']">
+        <mat-datepicker-toggle matSuffix [for]="dateFin"></mat-datepicker-toggle>
+        <mat-datepicker #dateFin ngDefaultControl></mat-datepicker>
+        <mat-error *ngIf="form.controls['dateFin'].hasError('required') && form.controls['dateFin'].touched">
+          obligatoire.
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>-->
+
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field>
+        <input matInput placeholder="Choisissez une date de début" [(ngModel)]="dateDebutt" [disabled]=true>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-6">
+      <mat-form-field>
+        <input matInput placeholder="Choisissez une date Fin" [(ngModel)]="dateFinn" [disabled]=true>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <!--<div class="col-md-6">
+      <mat-form-field class="md-icon-left">
+        <input matInput placeholder="Nombre de nuitées" [(ngModel)]='nb_jours' [disabled]=true>
+
+      </mat-form-field>
+      <mat-error *ngIf="nb_jours < minStay">
+        minimum {{minStay}} jours
+      </mat-error>
+
+      <mat-error *ngIf="!minStay">
+        {{msg}} </mat-error>
+
+    </div>-->
+
+    <div class="col-md-6">
+      <mat-form-field>
+
+        <input matInput placeholder="Nombre de nuitées" [(ngModel)]="nbNuite" [disabled]=true>
+      </mat-form-field>
+
+    </div>
+
+
+    <div class="col-md-6">
+
+
+      <mat-form-field class="md-icon-left">
+        <input matInput placeholder="Type de réservation" [(ngModel)]='type_reservation' [matAutocomplete]="auto7"
+          [formControl]="form.controls['typeReservation']">
+
+        <mat-autocomplete #auto7="matAutocomplete">
+          <mat-option *ngFor="let h of listReservation " (click)="getminstay(h)" [value]="h"> {{h}}</mat-option>
+          <!-- [disabled]="
+          !nb_jours ? true : null"-->
+
+        </mat-autocomplete>
+
+        <mat-error
+          *ngIf="form.controls['typeReservation'].hasError('required') && form.controls['typeReservation'].touched">
+          obligatoire.
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+</ni-card>
+<ni-card title="Détails réservation">
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field class="example-full-width">
+        <input type="text" placeholder="Nombre de chambres" aria-label="Number" matInput [matAutocomplete]="auto2"
+          [formControl]="form.controls['nbreChambre']">
+        <mat-error *ngIf="form.controls['nbreChambre'].hasError('required') && form.controls['nbreChambre'].touched">
+          obligatoire.
+        </mat-error>
+        <mat-autocomplete #auto2="matAutocomplete">
+          <mat-option *ngFor="let nb of liste_nombre_chambres" (click)="onNbChambreSelected(nb)" [value]="nb">{{nb}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+
+
+      <mat-form-field class="example-full-width">
+        <input type="text" placeholder="Type de chambres" aria-label="Number" matInput [matAutocomplete]="auto3"
+          [formControl]="form.controls['typeChambre']">
+        <mat-autocomplete #auto3="matAutocomplete">
+          <mat-option *ngFor="let type of liste_type_chambre" (click)="onType_chambreSelected(type)" [value]="type">
+            {{type}}</mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="form.controls['typeChambre'].hasError('required') && form.controls['typeChambre'].touched">
+          obligatoire.
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <mat-form-field class="example-full-width">
+        <input type="text" placeholder="Nombre de personne" aria-label="Number" matInput [matAutocomplete]="auto4"
+          [formControl]="form.controls['nbPersonne']">
+        <mat-autocomplete #auto4="matAutocomplete">
+          <mat-option *ngFor="let nb_pers of liste_nb_personne" (click)="onNb_persSelected(nb_pers)" [value]="nb_pers">
+            {{nb_pers}}</mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="form.controls['nbPersonne'].hasError('required') && form.controls['nbPersonne'].touched">
+          obligatoire.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field class="example-full-width">
+        <input type="text" placeholder="Adultes" aria-label="Number" matInput [matAutocomplete]="auto5"
+          [formControl]="form.controls['adulte']">
+        <mat-autocomplete #auto5="matAutocomplete">
+          <mat-option *ngFor="let adult of liste_adulte" (click)="onNb_adultSelected(adult)" [value]="adult">{{adult}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="form.controls['adulte'].hasError('required') && form.controls['adulte'].touched">
+          obligatoire.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field class="example-full-width">
+        <input type="text" placeholder="Enfants" aria-label="Number" matInput [matAutocomplete]="auto6">
+        <mat-autocomplete #auto6="matAutocomplete">
+          <mat-option *ngFor="let enf of liste_enfant" (click)="onNb_EnfSelected(enf)" [value]="enf">{{enf}}
+          </mat-option>
+        </mat-autocomplete>
+
+      </mat-form-field>
+    </div>
+
+
+    <div *ngFor="let enf of  fakeArray(nbenfant);let i = index">
+      <div class="col-md-8">
+        <mat-form-field>
+          <input   matInput type="text" placeholder="Age {{enf}} de l'enfant"   [(ngModel)]="listServiceFeature[i]" (change)="age(enf,i)">
+
+        </mat-form-field>
+      </div>
+    </div>
+
+
+
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field>
+        <textarea matInput placeholder="Commentaires" [(ngModel)]='commentaires'></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+</ni-card>
+<p><button mat-raised-button color="accent" (click)="validate()"
+    [disabled]="!form.valid || nb_jours < minStay ">Valider</button></p>
+<div *ngIf="!form.valid" style="color: red"> *Veuillez remplir le formulaire. </div>
